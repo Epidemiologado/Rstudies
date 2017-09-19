@@ -1,0 +1,69 @@
+#Dados da Planilha PA_Sist
+
+idade <- c(14.0,12.0,16.0,13.0,11.0,21.0,17.0,15.0,17.0,20.0,21.0,17.0,23.0,12.0,16.0,15.0,19.0,24.0,24.0,12.0,23.0,23.0,20.0,13.0,18.0,18.0,19.0,24.0,25.0,22.0)
+peso_lb <- c(94,95,104,107,108,116,117,117,122,124,125,125,125,128,128,129,134,134,136,137,137,138,139,141,141,143,150,171,171,172)
+peso_kg <- c(42.64,43.09,47.17,48.53,48.99,52.62,53.07,53.07,55.34,56.25,56.70,56.70,56.70,58.06,58.06,58.51,60.78,60.78,61.69,62.14,62.14,62.60,63.05,63.96,63.96,64.86,68.04,77.56,78.02,78.02)
+pa_sist <- c(97,100,100,106,119,111,106,117,111,126,115,118,124,126,116,131,125,125,128,130,138,131,129,127,131,126,142,165,157,163)
+sex <- c(1,2,2,1,1,2,1,2,1,1,2,2,2,1,1,1,1,2,1,2,1,2,1,1,2,2,1,2,1,2)
+
+#Construção de matriz de dados
+
+dados <- data.frame(idade,peso_lb,peso_kg,pa_sist,sex)
+
+#Tabela e Análise Descritiva
+
+print(dados)
+summary(dados)
+
+#matriz de dispersão
+
+pairs(dados)
+
+#testes de normalidade 
+
+ks.test(pa_sist)
+ks.test(peso_kg)
+ks.test(idade)
+ks.test(sex)
+
+#problemas no ks.test(não sei a variável y)
+
+shapiro.test(pa_sist)
+shapiro.test(peso_kg)
+shapiro.test(idade)
+shapiro.test(sex)
+
+#correlação entre as variáveis (exemplo)
+
+cor(pa_sist,peso_lb, method="pearson")
+cor(pa_sist,peso_lb, method="spearman")
+
+
+#criar modelo de Regressão Linear
+
+modelo_1 <- lm(pa_sist~peso_kg)
+
+modelo_2 <- lm(pa_sist~peso_kg+idade+sex)
+
+#Teste Durbion-Watson (resíduos)
+
+#coeficientes
+coefficients(modelo_2 
+
+#intervalos de confiança
+confint(modelo_2, level=0.95) 
+
+#valores previsíveis
+fitted(modelo_2)
+
+#resíduos
+residuals(modelo_2)
+
+#tabela anova
+anova(modelo_2) 
+
+#matriz de covariância
+vcov(modelo_2)
+
+#diagnóstico da regressão
+influence(modelo_2)
