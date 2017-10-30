@@ -22,6 +22,28 @@
 %tos. Antes de iniciá-la, as medidas de colesterol e de triglicerídeos foram registrada para cada indivíduo.
 
 dados <- read.table("dados5.txt", head=TRUE sep="", dec=".")
-names(dados) <- c("Paciente", "Nível de Colesterol(mmol/l)", "Nível de Triglicerídeos(mmol/l)")
+
 print(dados)
 
+%(a) Construa um gráfico de dispersão bidimensional para esses dados.
+
+grafico <- plot(dados$nvcol, dados$nvtri)
+
+$(b) Há alguma evidência de uma relação linear entre os dois níveis de colesterol e de triglicerídeos antes da dieta?
+$R: À primeira vista o gráfico mostra extremos que parecem seguir uma direção, mas os pontos estão dispersos demais para inferir correlação.
+
+%(c) Calcule r, o Coeficeitene de correlação de Pearson
+
+cor(dados$nvcol, dados$nvtri, method="pearson")
+
+%(d) Ao nível de significância de 0.05, teste a hipótese nula de que a correlação p da população seja igual a 0. O que você conclui.
+
+cor.test(dados$nvcol, dados$nvtri, method="pearson")
+
+%R: Conclui-se que é possível rejeitar a hipótese nula, p=0.04204, portanto a correlação é diferente de 0.
+
+%(e) Calcule rs, o coeficiente de postos de Spearman
+
+cor(dados$nvcol, dados$nvtri, method="spearman")
+
+cor.test(dados1$nvcol, dados1$nvtri, method="pearson")
