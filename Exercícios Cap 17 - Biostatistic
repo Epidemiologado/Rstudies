@@ -1,48 +1,48 @@
 
-%Capítulo 17 - Exercícios de Revisão
+#Capítulo 17 - Exercícios de Revisão
 
-%1. Quando você investiga uma relação entre duas variáveis aleatórias contínuas, por que é importante criar um gráfico de dispersão de dados?
-%R: Para visualizar a existências de relação linear entre as variáveis.
+#1. Quando você investiga uma relação entre duas variáveis aleatórias contínuas, por que é importante criar um gráfico de dispersão de dados?
+#R: Para visualizar a existências de relação linear entre as variáveis.
 
-%2. Quais são as qualidades e limitações do coeficiente de correlação de Pearson?
-%R: As qualidades é que ele é adequado para mensurar os graus de lineraridade e a direção desta lineraridade (se negativa ou positiva),
-% porém possui a limitação de não conseguir expressar a força da correlação e somente pode ser usada para variáveis aleatórias contínuas e 
-% cujas distribuições sejam normais ou aproximadamente normais.
+#2. Quais são as qualidades e limitações do coeficiente de correlação de Pearson?
+#R: As qualidades é que ele é adequado para mensurar os graus de lineraridade e a direção desta lineraridade (se negativa ou positiva),
+# porém possui a limitação de não conseguir expressar a força da correlação e somente pode ser usada para variáveis aleatórias contínuas e 
+# cujas distribuições sejam normais ou aproximadamente normais.
 
-%3. Como a correlação de postos de Spearman difere da correlação de Pearson?
-%R: Ela e adequada nos casos em que uma das variáveis não é contínua e/ou suas distribuições não são normais. Alem disso ela leva
-% em consideração não os valores das observações, mas seus postos, após ordenadas.
+#3. Como a correlação de postos de Spearman difere da correlação de Pearson?
+#R: Ela e adequada nos casos em que uma das variáveis não é contínua e/ou suas distribuições não são normais. Alem disso ela leva
+# em consideração não os valores das observações, mas seus postos, após ordenadas.
 
-%4. Se um teste de hipóteses indica que a correlação entre duas variáveis aleatórias não é significativamente diferente de 0, implica que
-% as variáveis são necessariamente independentes? Explique.
-%R: A rejeição da hipótese alternativa (r diferente de 0) não significa a aceitação da hipótese nula. Apenas a partir da aceitação de que
-% r=0 que poderíamos dizer que não existe correlação.
+#4. Se um teste de hipóteses indica que a correlação entre duas variáveis aleatórias não é significativamente diferente de 0, implica que
+# as variáveis são necessariamente independentes? Explique.
+#R: A rejeição da hipótese alternativa (r diferente de 0) não significa a aceitação da hipótese nula. Apenas a partir da aceitação de que
+# r=0 que poderíamos dizer que não existe correlação.
 
-%5. Em um estudo conduzido na Itália, 10 pacientes com hipertrigliceridemia foram colocados sob dieta de baixas calorias e altos carboidra-
-%tos. Antes de iniciá-la, as medidas de colesterol e de triglicerídeos foram registrada para cada indivíduo.
+#5. Em um estudo conduzido na Itália, 10 pacientes com hipertrigliceridemia foram colocados sob dieta de baixas calorias e altos carboidra-
+#tos. Antes de iniciá-la, as medidas de colesterol e de triglicerídeos foram registrada para cada indivíduo.
 
 dados <- read.table("dados5.txt", head=TRUE sep="", dec=".")
 
 print(dados)
 
-%(a) Construa um gráfico de dispersão bidimensional para esses dados.
+#(a) Construa um gráfico de dispersão bidimensional para esses dados.
 
 grafico <- plot(dados$nvcol, dados$nvtri)
 
-$(b) Há alguma evidência de uma relação linear entre os dois níveis de colesterol e de triglicerídeos antes da dieta?
-$R: À primeira vista o gráfico mostra extremos que parecem seguir uma direção, mas os pontos estão dispersos demais para inferir correlação.
+#(b) Há alguma evidência de uma relação linear entre os dois níveis de colesterol e de triglicerídeos antes da dieta?
+#R: À primeira vista o gráfico mostra extremos que parecem seguir uma direção, mas os pontos estão dispersos demais para inferir correlação.
 
-%(c) Calcule r, o Coeficeitene de correlação de Pearson
+#(c) Calcule r, o Coeficeitene de correlação de Pearson
 
 cor(dados$nvcol, dados$nvtri, method="pearson")
 
-%(d) Ao nível de significância de 0.05, teste a hipótese nula de que a correlação p da população seja igual a 0. O que você conclui.
+#(d) Ao nível de significância de 0.05, teste a hipótese nula de que a correlação p da população seja igual a 0. O que você conclui.
 
 cor.test(dados$nvcol, dados$nvtri, method="pearson")
 
-%R: Conclui-se que é possível rejeitar a hipótese nula, p=0.04204, portanto a correlação é diferente de 0.
+#R: Conclui-se que é possível rejeitar a hipótese nula, p=0.04204, portanto a correlação é diferente de 0.
 
-%(e) Calcule rs, o coeficiente de postos de Spearman
+#(e) Calcule rs, o coeficiente de postos de Spearman
 
 cor(dados$nvcol, dados$nvtri, method="spearman")
 
