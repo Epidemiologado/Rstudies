@@ -1,0 +1,41 @@
+# Exercícios que utilizam a base de dados lowbwt
+
+lowbwt <- read.table("lowbwt.txt", head=T, sep="", dec=".")
+
+# Cap. 3 - Medidas-Resumo Numéricas
+# Questão 15 - O conjunto de dados lowbwt contém a informação registrada para uma amostra de 100 bebês com peso baixo ao nascer - que
+# pesam emnos do que 1.500 gramas - nascidos em dois hospitais-escola em Boston, Massachusetts (18) (Apêndice B, Tabela B7). As medidas
+# de pressão sanguínea sistólica estão salvas sob a variável de nome sbp. A variável aleatória dicotômica sex designa o sexo de cada 
+# criança, com 1 representando um menino e 0 uma menina.
+
+# a) Construa um par de box plot para as medidas de pressão sanguínea sistólica - uma para meninos e outra para meninas. Compare as duas
+# distribuição de valores
+
+boxplot(sbp~sex, data=lowbwt)
+
+# b) Calcule a média e o desvio-padrão das medidas de pressão sanguínea sistólica para meninos e meninas. Que grupo tem a maior média? 
+# E o maior desvio padrão?
+
+lowglr <- lowbwt[lowbwt$sex =="Mulher",]
+lowboy <- lowbwt[lowbwt$sex =="Homem",]
+
+mean(lowboy$sbp)
+sd(lowboy$sbp)
+mean(lowglr$sbp)
+sd(lowglr$sbp)
+
+# Outra maneira de responder é utilizar o pacote psych
+
+library(psych)
+describe.by(lowbwt, lowbwt$sex)
+
+# c) Calcule o coeficiente de variação que corresponde a cada sexo. Há alguma evidência de que a variabilidade na pressão sanguínea
+# sistólica difere para meninos e meninas?
+
+cvboy <- sd(lowboy$sbp)/mean(lowboy$sbp)
+cvglr <- sd(lowglr$sbp)/mean(lowglr$sbp)
+
+print(cvboy)
+print(cvglr)
+
+# 9)
