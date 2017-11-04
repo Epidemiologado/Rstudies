@@ -4,7 +4,9 @@
 # em dois hospitais escolas em Boston, Massachussets. As medidas de pressão sanguínea sistólica estão salvas sob a variável de nome sbp,
 # enquando indicadores do sexo - onde 1 representa menino e 0 uma menina - estão salvos sobre o nome sex. Os Valores do escore Apgar - 
 # um índice de asfixia neonatal ou privação de oxigênio - registrados cinco minutos após o nascimento estão salvos sob a variável de 
-# nome apgar5. O escore Apgar é uma variável aleatória ordinal que assume valores entre 0 e 10.
+# nome apgar5. O escore Apgar é uma variável aleatória ordinal que assume valores entre 0 e 10. Indicadores de um diagnóstico de toxemia
+# durante a gravidez - condição caracterizada por pressão sanguínea alta e outras complicações potencialmente sérias - estão salvos sob
+# uma variável de nome tox.
 
 lowbwt <- read.table("lowbwt.txt", head=T, sep="", dec=".")
 
@@ -98,6 +100,45 @@ hist(lowbwt$sbp)
  # Utiliza-se o teste de postos de wilcox
  
  wilcox.test(apgar~sex, data=lowbwt)
+ 
+ # Cap. 14 - Inferência sobre proporções
+ # Questão 13
+ 
+ # a) Estime a proporção de bebês nascidos com baixo peso, cujas mães sofreram de toxemia durante a gravidez.
+ 
+ library(MASS)
+ tox = na.omit(lowbwt$tox)
+ n = length(tox)
+ k = sum(tox == 1)
+ 
+ proptox = k/n 
+ 
+ proptox
+ 
+ # b) Construa um intervalo de confiança de 95% para a verdaira proporção da população p.
+ 
+p = proptox
+ 
+# erro padrão
+ 
+ ep = sqrt(p*(1-p)/n)
+ ep
+ 
+ # margem de erro
+ 
+ zab = qnorm(.975)
+ 
+ me = zab*ep 
+ 
+ # Intervalo de confiança para proporção
+ 
+ p + c(-me,me)
+ 
+ # Esse é um intervalo exato de confiança ou se baseia na aproximação normal para a distribuição binomial?
+ 
+ 
+ 
+ 
  
  
  
