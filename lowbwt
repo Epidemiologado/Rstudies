@@ -1,12 +1,15 @@
 # Exercícios que utilizam a base de dados lowbwt
 
+# O conjunto de dados lowbwt contém informação registrada para uma amostra de 100 bebês com baixo peso ao nascer, nascidos
+# em dois hospitais escolas em Boston, Massachussets. As medidas de pressão sanguínea sistólica estão salvas sob a variável de nome sbp,
+# enquando indicadores do sexo - onde 1 representa menino e 0 uma menina - estão salvos sobre o nome sex. Os Valores do escore Apgar - 
+# um índice de asfixia neonatal ou privação de oxigênio - registrados cinco minutos após o nascimento estão salvos sob a variável de 
+# nome apgar5. O escore Apgar é uma variável aleatória ordinal que assume valores entre 0 e 10.
+
 lowbwt <- read.table("lowbwt.txt", head=T, sep="", dec=".")
 
 # Cap. 3 - Medidas-Resumo Numéricas
-# Questão 15 - O conjunto de dados lowbwt contém a informação registrada para uma amostra de 100 bebês com peso baixo ao nascer - que
-# pesam emnos do que 1.500 gramas - nascidos em dois hospitais-escola em Boston, Massachusetts (18) (Apêndice B, Tabela B7). As medidas
-# de pressão sanguínea sistólica estão salvas sob a variável de nome sbp. A variável aleatória dicotômica sex designa o sexo de cada 
-# criança, com 1 representando um menino e 0 uma menina.
+# Questão 15
 
 # a) Construa um par de box plot para as medidas de pressão sanguínea sistólica - uma para meninos e outra para meninas. Compare as duas
 # distribuição de valores
@@ -16,8 +19,8 @@ boxplot(sbp~sex, data=lowbwt)
 # b) Calcule a média e o desvio-padrão das medidas de pressão sanguínea sistólica para meninos e meninas. Que grupo tem a maior média? 
 # E o maior desvio padrão?
 
-lowglr <- lowbwt[lowbwt$sex =="Mulher",]
-lowboy <- lowbwt[lowbwt$sex =="Homem",]
+lowglr <- lowbwt[lowbwt$sex ==1,]
+lowboy <- lowbwt[lowbwt$sex ==0,]
 
 mean(lowboy$sbp)
 sd(lowboy$sbp)
@@ -27,7 +30,7 @@ sd(lowglr$sbp)
 # Outra maneira de responder é utilizar o pacote psych
 
 library(psych)
-describe.by(lowbwt, lowbwt$sex)
+describeBy(lowbwt, lowbwt$sex)
 
 # c) Calcule o coeficiente de variação que corresponde a cada sexo. Há alguma evidência de que a variabilidade na pressão sanguínea
 # sistólica difere para meninos e meninas?
@@ -38,4 +41,73 @@ cvglr <- sd(lowglr$sbp)/mean(lowglr$sbp)
 print(cvboy)
 print(cvglr)
 
-# 9)
+# Cap. 9 -  Intervalos de Confiança
+# Questão 13
+
+# a) Cacule o intervalo de confiança de 95% para a pressão sanguínea sistólica média verdadeira de bebês do sexo masculino com baixo
+# peso ao nascer.
+
+t.test(lowboy$sbp)
+
+# b) Calcule um intervalo de confiança de 95% para pressão sanguínea sistólica média verdadeira de bebês do sexo feminino com baixo
+# peso ao nascer.
+
+t.test(lowglr$sbp)
+
+# c) Você acha que é possível meninos e meninas terem a mesma pressão sanguínea sistólica média? Explique brevemente
+
+# Cap 11. - Comparação de Duas Médias
+# Questão 15 
+
+# a) Construa um histograma das medidas de pressão sanguínea sistólica para essas amostra. Com base no gráfico, você acredita que a 
+# pressão sanguínea tenha distribuição aproximadamente normal?
+
+hist(lowbwt$sbp)
+
+# b) Teste a hipótese nula de que entre os bebês com baixos pesos ao nascer, a pressão sanguínea sistólica média para meninos seja igual
+# à média para as meninas. Use um test bilateral ao nível de significância de 0,05. O que você conclui?
+
+ t.test(sbp~sex, data=lowbwt, alternative="two.sided")
+
+
+# Cap 12 - Análise de Variância
+# Questão 11.
+
+# a) Assumindo variâncias iguais para meninos e meninas, use o teste-t de duas amostras para avaliar a hipótese nula de que, entre os 
+# bebês com baixo peso ao nascer, a pressão sanguínea sistólica média das meninas é identica à dos meninos.
+
+ t.test(lowglr$sbp, lowboy$sbp, alternative="two.sided")
+ 
+ # b) Embora haja somente duas populações em vez de três ou mais, teste a mesma hipótese nula, usando a análise de variância como fator.
+ 
+ aov(sbp~sex, data=lowbwt)
+ 
+ # c) Nesse texto, foi feita a afirmação de que, no caso de duas amostras independentes, o teste-F usado na análise de variância com um 
+ # fator se reduz ao teste-t de duas amostras. Você acredita que essa afirmação seja verdadeira? Explique brevemente.
+ 
+ # Cap 13 - Métodos Não-paramétricos.
+ # questão 15
+ 
+ # a) construa um par de box plots do escore Apgar de 5 minutos para bebês masculinos e femininos.
+ 
+ boxplot(apgar5~sex, data=lowbwt)
+ 
+ # b) Teste a hipótese nula de que entre os bebês com baixo peso ao nascer, o escore Apgar mediano para meninos é igual ao escore médiano
+ # para as meninas. O que você conclui?
+ 
+ # Utiliza-se o teste de postos de wilcox
+ 
+ wilcox.test(apgar~sex, data=lowbwt)
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
