@@ -1,0 +1,6 @@
+unicef <- read.table("unicef.csv", head=T, sep=";", dec=".")
+attach(unicef)
+class(unicef)
+names(unicef)
+print(unicef)
+
