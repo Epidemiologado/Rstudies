@@ -1,18 +1,48 @@
+# unicef
+
+# Pacotes utilizados: xtable
+
 unicef <- read.table("unicef.csv", head=T, sep=";", dec=".")
 attach(unicef)
 class(unicef)
 names(unicef)
 print(unicef)
 
-# Exercícios que usam o banco de dados unicef
+# Cap. 2 - Ex. 17
 
-# As porcentagens de bebês com baixo peso ao nascer, em vários países do mundo, estão contidas no conjunto de dados unicef. As medidas
-# de baixo peso estão salvas sob a variável lowbwt
+# a)
 
-# Cap. 2 - Apresentação de Dados
+pdf('boxplot_unicef_lowbwt.pdf')
+boxplot(lowbwt, data=unicef)
+dev.off()
 
-# Exercício 17
+# Cap. 3 Ex. 12
 
-# a) Construa um box plot para as porcentagens com baixo peso ao nascer.
+# a)
 
-boxplot(
+mean(lowbwt, data=unicef, na.rm=TRUE)
+
+median(lowbwt, data=unicef, na.rm=TRUE)
+
+# Cap. 5 Ex 16
+
+# a) 
+
+pdf('boxplot_unicef_life60.pdf')
+boxplot(life60, data=unicef)
+dev.off()
+
+# b) 
+
+pdf('boxplot_unicef_life60.pdf')
+boxplot(life60, data=unicef)
+dev.off()
+
+# c)
+
+exp(life60) 
+
+calc <- exp(life92)- exp(life60)
+calc1 <- calc/exp(life60)
+
+calc1
