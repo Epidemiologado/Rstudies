@@ -4,3 +4,15 @@ class(unicef)
 names(unicef)
 print(unicef)
 
+# Exercícios que usam o banco de dados unicef
+
+# As porcentagens de bebês com baixo peso ao nascer, em vários países do mundo, estão contidas no conjunto de dados unicef. As medidas
+# de baixo peso estão salvas sob a variável lowbwt
+
+# Cap. 2 - Apresentação de Dados
+
+# Exercício 17
+
+# a) Construa um box plot para as porcentagens com baixo peso ao nascer.
+
+boxplot(
