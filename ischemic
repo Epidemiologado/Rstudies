@@ -1,0 +1,64 @@
+# ischemic
+
+
+ischemic <- read.table("ischemic.csv", head=T, sep=";", dec=",")
+attach(ischemic)
+class(ischemic)
+names(ischemic)
+print(ischemic)
+-
+
+#Cap. 3, Ex. 14
+
+# Dados da tabela
+
+pres <- c('115-124', '125-134', '135-144', '145-154', '155-164', '165-174', '175-184')
+
+num <- c(4,5,5,7,5,4,5)
+
+
+dados <-data.frame(pres,num)
+
+names(dados) <- c("Pressão Diastólica", "Número")
+
+library(xtable)
+
+xtable(dados)
+
+#a)
+
+mean(num)
+
+sd(num)
+
+# b)
+
+mean(sbp)
+
+sd(sbp)
+
+
+
+# Cap. 17, Ex. 6
+
+# a)
+
+pdf('plot_line_time_dur.pdf')
+plot(time,duration)
+dev.off()
+
+# c)
+
+cor(time, duration, method="pearson")
+
+# e)
+
+cor.test(time, duration, method="pearson")
+
+# f)
+
+cor(time, duration, method="spearman")
+
+# g) 
+
+cor.test(time, duration, method="spearman")
