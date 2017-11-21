@@ -1,0 +1,22 @@
+# nurshome
+
+
+nurshome <- read.table("nurshome.csv", head=T, sep=";", dec=",")
+attach(nurshome)
+class(nurshome)
+names(nurshome)
+print(nurshome)
+
+# Cap. 2 Ex. 18
+
+a)
+
+nurshome[sort(resident, nation, decreasing=TRUE),]
+
+b)
+
+boxplot(resident)
+
+c)
+
+hist(resident)
