@@ -1,0 +1,18 @@
+# brate
+
+
+brate <- read.table("brate.csv", head=T, sep=";", dec=",")
+attach(brate)
+class(brate)
+names(brate)
+print(brate)
+
+
+# Cap. 2, Ex. 20
+
+# a)
+
+pdf('plot_line_brate.pdf')
+plot(brate, type="l")
+dev.off()
+
