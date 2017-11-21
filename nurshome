@@ -9,14 +9,18 @@ print(nurshome)
 
 # Cap. 2 Ex. 18
 
-a)
+# a)
 
 nurshome[sort(resident, nation, decreasing=TRUE),]
 
-b)
+# b)
 
+pdf('boxplot_nurshome_resident.pdf')
 boxplot(resident)
+dev.off()
 
-c)
+# c)
 
+pdf('hist_nurshome_resident.pdf')
 hist(resident)
+dev.off()
