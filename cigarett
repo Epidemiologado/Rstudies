@@ -1,0 +1,38 @@
+# cigarett
+
+
+cigarett <- read.table("cigarett.csv", head=T, sep=";", dec=",")
+attach(cigarett)
+class(cigarett)
+names(cigarett)
+print(cigarett)
+
+# Cap 2. ex. 19
+
+# a)
+
+library(lattice)
+
+pdf('stripplot_tar.pdf')
+stripplot(tar)
+dev.off()
+
+# c)
+
+pdf('plot_tar_nicotine.pdf')
+plot(tar, nicotine)
+dev.off()
+
+# Cap 3. ex. 13
+
+# a)
+
+mean(nicotine)
+
+median(nicotine)
+
+
+# b)
+pdf('hist_nicotine.pdf')
+hist(nicotine)
+dev.off()
