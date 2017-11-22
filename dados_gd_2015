@@ -10,10 +10,90 @@ table(dados$COR)
 help(table)
 
 
-RSdadosh <- subset(dados, dados$DIAGNoSTICO=="homicidio")
-RSdadoscr <- subset(dados, dados$DIAGNoSTICO!="homicidio")
+dadosh <- subset(dados, dados$DIAGNoSTICO=="homicidio")
+dadoscr <- subset(dados, dados$DIAGNoSTICO!="homicidio")
 
 edit(dadosh)
+
+# Para obter frequências
+
+library(Hmisc)
+
+
+describe(dadosh) 
+describe(dadoscr)
+
+attach(dadosh)
+
+# Criar tabela simples
+
+grSEXO <- table(SEXO)
+
+barplot(grSEXO, main="Frequências de homens e mulheres vítimas de homicidio", xlab="sexo")
+
+# Grouped Bar Plot
+SEXOGrp <- table(dadosh$SEXO, dadoscr$SEXO)
+barplot(SEXOGrp, main="Sexo das vítimas de homicídio e de demais causas", xlab="sexo", col=c("darkblue","red"),legend = rownames(counts), beside=TRUE, names.arg=c("masculino", "feminino"))
+
+#SEXO
+NASCIMENTO(calcular idade)
+UBS
+OCUPACAO
+ATIVIDADE
+
+RELIGIaO
+
+
+
+ESCOLARIDADE
+ANOESC
+COR_FICHA
+COR
+
+contagem de data (concentração por meses do ano) - Análise da sazonalidade
+
+LOCAL.DA.OCORRENCIA
+
+CB
+
+PRECISA.IML.
+
+FEITO.IML.
+
+DIAGNoSTICO
+
+XX.
+
+USO.DE.aLCOOL
+
+USO.DE.TABACO
+
+USO.DE.DROGAS
+
+SUBSTANCIA
+
+USO.PROBLEMaTICO
+
+VENDE.DROGA.
+
+ENV..CRIME.
+
+QUAL.
+
+TRANS..MENTAL.
+
+INTERN..PSIQ.
+
+HIST..SUICiDIO
+
+POLI_Morte
+
+PRAT_Sex
+
+VIO_Mulher
+
+
+
 
 table(dadosh$COR)
 table(dadoscr$COR)
@@ -54,5 +134,3 @@ RSdadoscr <- subset(RiskSetSampling, RiskSetSampling$DIAGNoSTICO!="homicidio")
 
 summary(RSdadosh)
 summary(RSdadoscr)
-
-
