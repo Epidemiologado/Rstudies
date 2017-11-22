@@ -1,13 +1,4 @@
-# Exercícios que utilizam a base de dados lowbwt
-
-# O conjunto de dados lowbwt contém informação registrada para uma amostra de 100 bebês com baixo peso ao nascer, nascidos
-# em dois hospitais escolas em Boston, Massachussets. As medidas de pressão sanguínea sistólica estão salvas sob a variável de nome sbp,
-# enquando indicadores do sexo - onde 1 representa menino e 0 uma menina - estão salvos sobre o nome sex. Os Valores do escore Apgar - 
-# um índice de asfixia neonatal ou privação de oxigênio - registrados cinco minutos após o nascimento estão salvos sob a variável de 
-# nome apgar5. O escore Apgar é uma variável aleatória ordinal que assume valores entre 0 e 10. Indicadores de um diagnóstico de toxemia
-# durante a gravidez - condição caracterizada por pressão sanguínea alta e outras complicações potencialmente sérias - estão salvos sob
-# uma variável de nome tox. Os valores de idade gestacional está sob o nome gestage. A variável grhem é uma variável aleatória dicotômica
-# que indica se o bebê teve hemorragia na matriz germinal.
+# lowbwt
 
 lowbwt <- read.table("lowbwt.txt", head=T, sep="", dec=".")
 attach(lowbwt)
@@ -16,16 +7,13 @@ names(lowbwt)
 print(lowbwt)
 
 
-# Cap. 3 - Medidas-Resumo Numéricas
-# Questão 15
+# Ex. 15, Cap. 3
 
-# a) Construa um par de box plot para as medidas de pressão sanguínea sistólica - uma para meninos e outra para meninas. Compare as duas
-# distribuição de valores
+# a)
 
 boxplot(sbp~sex, data=lowbwt)
 
-# b) Calcule a média e o desvio-padrão das medidas de pressão sanguínea sistólica para meninos e meninas. Que grupo tem a maior média? 
-# E o maior desvio padrão?
+# b) 
 
 lowglr <- lowbwt[lowbwt$sex ==1,]
 lowboy <- lowbwt[lowbwt$sex ==0,]
@@ -40,8 +28,7 @@ sd(lowglr$sbp)
 library(psych)
 describeBy(lowbwt, lowbwt$sex)
 
-# c) Calcule o coeficiente de variação que corresponde a cada sexo. Há alguma evidência de que a variabilidade na pressão sanguínea
-# sistólica difere para meninos e meninas?
+# c) 
 
 cvboy <- sd(lowboy$sbp)/mean(lowboy$sbp)
 cvglr <- sd(lowglr$sbp)/mean(lowglr$sbp)
@@ -49,31 +36,24 @@ cvglr <- sd(lowglr$sbp)/mean(lowglr$sbp)
 print(cvboy)
 print(cvglr)
 
-# Cap. 9 -  Intervalos de Confiança
-# Questão 13
+# Ex. 13, cap. 9
 
-# a) Cacule o intervalo de confiança de 95% para a pressão sanguínea sistólica média verdadeira de bebês do sexo masculino com baixo
-# peso ao nascer.
+# a)
 
 t.test(lowboy$sbp)
 
-# b) Calcule um intervalo de confiança de 95% para pressão sanguínea sistólica média verdadeira de bebês do sexo feminino com baixo
-# peso ao nascer.
+# b) 
 
 t.test(lowglr$sbp)
 
-# c) Você acha que é possível meninos e meninas terem a mesma pressão sanguínea sistólica média? Explique brevemente
 
-# Cap 11. - Comparação de Duas Médias
-# Questão 15 
+# Ex. 14, Cap 11. 
 
-# a) Construa um histograma das medidas de pressão sanguínea sistólica para essas amostra. Com base no gráfico, você acredita que a 
-# pressão sanguínea tenha distribuição aproximadamente normal?
+# a) 
 
 hist(lowbwt$sbp)
 
-# b) Teste a hipótese nula de que entre os bebês com baixos pesos ao nascer, a pressão sanguínea sistólica média para meninos seja igual
-# à média para as meninas. Use um test bilateral ao nível de significância de 0,05. O que você conclui?
+# b) 
 
  t.test(sbp~sex, data=lowbwt, alternative="two.sided")
 
