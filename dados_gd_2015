@@ -1,0 +1,58 @@
+dados <- read.table("dados_gd_2015.txt", sep="\t", dec=",", hea=TRUE, as.is=TRUE)
+dados$data<-as.numeric(dados$data)
+dados$data
+
+edit(dados)
+
+names(dados)
+
+table(dados$COR)
+help(table)
+
+
+RSdadosh <- subset(dados, dados$DIAGNoSTICO=="homicidio")
+RSdadoscr <- subset(dados, dados$DIAGNoSTICO!="homicidio")
+
+edit(dadosh)
+
+table(dadosh$COR)
+table(dadoscr$COR)
+table(dadosh$USO.DE.aLCOOL)
+table(dadoscr$USO.DE.aLCOOL)
+
+
+###########################################################################
+## DESENHO 2: RISK-SET SAMPLING
+# POP ABERTA
+# Amostragem dos controle na data de incidencia dos casos
+# todos os casos VIGENTES
+# Sorteados propcc controles / caso
+propcc<-1
+RiskSetSampling<-data.frame()
+for (i in min(dadosh$data): max(dadosh$data)) {
+  periodo<-i
+  casos<-subset(dadosh,dadosh$data==i)
+  if (nrow(casos)>0) {
+    casos$Y<-1
+    espamcontrol<-subset(dadoscr,dadoscr$data>=i)
+    espamcontrol$Y<-0
+    icontroles<-sample(1:nrow(espamcontrol),nrow(casos)*propcc)
+    controles<-espamcontrol[icontroles,]
+    RiskSetSampling<-rbind(RiskSetSampling,casos,controles)
+  }
+}
+
+edit(RiskSetSampling)
+
+logistico = glm(RiskSetSampling$Y~RiskSetSampling$ANOESC,family=binomial(link="logit"))
+
+summary(logistico)
+logistico
+
+RSdadosh <- subset(RiskSetSampling, RiskSetSampling$DIAGNoSTICO=="homicidio")
+RSdadoscr <- subset(RiskSetSampling, RiskSetSampling$DIAGNoSTICO!="homicidio")
+
+summary(RSdadosh)
+summary(RSdadoscr)
+
+
