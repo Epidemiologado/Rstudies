@@ -58,43 +58,31 @@ hist(lowbwt$sbp)
  t.test(sbp~sex, data=lowbwt, alternative="two.sided")
 
 
-# Cap 12 - Análise de Variância
-# Questão 11.
+# ex. 11, cap 12 Cap 12 
 
-# a) Assumindo variâncias iguais para meninos e meninas, use o teste-t de duas amostras para avaliar a hipótese nula de que, entre os 
-# bebês com baixo peso ao nascer, a pressão sanguínea sistólica média das meninas é identica à dos meninos.
+# a) 
 
  t.test(lowglr$sbp, lowboy$sbp, alternative="two.sided")
  
- # b) Embora haja somente duas populações em vez de três ou mais, teste a mesma hipótese nula, usando a análise de variância como fator.
+ # b) 
  
  aov(sbp~sex, data=lowbwt)
+
+ # Ex. 15,  Cap 13 
  
- # c) Nesse texto, foi feita a afirmação de que, no caso de duas amostras independentes, o teste-F usado na análise de variância com um 
- # fator se reduz ao teste-t de duas amostras. Você acredita que essa afirmação seja verdadeira? Explique brevemente.
- 
- # Cap 13 - Métodos Não-paramétricos.
- # questão 15
- 
- # a) construa um par de box plots do escore Apgar de 5 minutos para bebês masculinos e femininos.
+ # a)
  
  boxplot(apgar5~sex, data=lowbwt)
  
- # b) Teste a hipótese nula de que entre os bebês com baixo peso ao nascer, o escore Apgar mediano para meninos é igual ao escore médiano
- # para as meninas. O que você conclui?
+ # b)
  
- # A comparação de mediana é feita utilizando testes não-paramétricos. No caso utiliza-se o teste de postos sinalizados de Wilcox.
- # Na função wilcox.test aponta-se TRUE em paired para que se aplique o teste de postos sinalizados, e não o teste de somas (default).
- # O teste de somas de postos é a adequado quando as amostras são extraídas de populações independentes, o que não se aplica.
- # 
+
  
  wilcox.test(apgar5~sex, data=lowbwt, paired=TRUE)
  
- # Cap. 14 - Inferência sobre proporções
- # Questão 13
+ # Ex. 13, Cap. 14
  
- # a) Estime a proporção de bebês nascidos com baixo peso, cujas mães sofreram de toxemia durante a gravidez.
- 
+ # a) 
  library(MASS)
  tox = na.omit(lowbwt$tox)
  n = length(tox)
@@ -104,7 +92,7 @@ hist(lowbwt$sbp)
  
  proptox
  
- # b) Construa um intervalo de confiança de 95% para a verdaira proporção da população p.
+ # b)
  
 p = proptox
  
@@ -122,110 +110,81 @@ p = proptox
  # Intervalo de confiança para proporção
  
  p + c(-me,me)
+
  
- # Esse é um intervalo exato de confiança ou se baseia na aproximação normal para a distribuição binomial?
+ # Ex. 7, Cap. 17 
  
- # Cap. 17 - Correlação
- # Questão 7.
- 
- # a) Estime correlação das variáveis aleatórias pressão sanguínea sistólica e escore Apgar de cinco minutos para essa população de 
- # bebês nascidos com baixo peso.
+ # a)
  
  cor(lowbwt$sbp, lowbwt$apgar5, method="spearman")
  
- # b) O escore Apgar tende a aumentar ou diminuir conforme aumenta a pressão sanguínea sistólica?
+ # b)
  
- # c) Teste a hipótese nula.
- # h0: p = 0
- # O que você conclui?
+ # c)
  
  cor.test(lowbwt$sbp, lowbwt$apgar5, method="spearman")
  
- # Cap. 18 - Regressão Linear Simples
- # Questão 9.
+ # Ex. 9, Cap. 18 
  
- # a) Construa um gráfico de dispersão bidimensional da pressão sanguínea sistolica versus a idade gestacional. O gráfico faz sugestões
- # sobre a natureza da relação entre essas variáveis?
+ # a) 
  
   plot(lowbwt$sbp, lowbwt$gestage)
   
-  # b) Usando a pressão sanguínea sistólica como resposta e a idade gestacional como variável explicativa, calcule a linha de regressão 
-  # de mínimos quadrados. Interprete a inclinação e o intecepto y estimados da linha; o que significam, em palavras?
+  # b)
   
-lm(sbp~gestage, data=lowbwt)
+  lm(sbp~gestage, data=lowbwt)
  
- # c) Ao nível de significância de 0,05, teste a hipótele nula de que a verdadeira inclinação beta da população é igual a 0. O que você
- # conclui?
- 
+ # c)
     linear = lm(lowbwt$sbp~lowbwt$gestage)
 
  summary(linear)
  
- # d) Qual a pressão sanguínea sistólica média estimada para a população de bebês nascidos com baixo peso com idade gestacional de 31
- # semanas?
- 
+ # d) 
  # Basta multiplicar o valor de 31 pelo beta da inclinação (os coeficientes do modelo)
  
  x = 31*coef(linear)
  
- # e) Construa um intervalo de confiança de 95% para o valor médio verdadeiro da perssão sanguínea sistólica quando x= 31 semanas)
+ # e)
 
 confint(linear,'lowbwt$gestage',level=0.95)
 
-# f) Suponha que você selecione aleatoriamente uma nova criança da população de bebês nascidos com baixo peso com idade gestacional de 
-# 31 semanas. Qual a pressão sanguínea sistólica prevista para essa criança?
+# f) 
 
+# g)
 
-# g) Construa um intervalo de predição de 95% para esse novo valor da pressão sangúinea sistólica.
+# h) 
 
-# h) O modelo de regressão de mínimos quadrados parece se ajustar aos dados observados? Comente os coeficientes de determinação e um
-# um gráfico dos resíduos versus os valores ajustados da pressão sanguínea sistólica.
+# Ex. 9, Cap. 19
 
-# Cap. 19 - Regressão Múltipla
-# Questão 9
+# a) 
 
-# a) Adicione a variável indicadora sex - na qual 1 representa masculino e 0 feminino - ao modelo que contém a idade gestacional. Dada
-# duas crianças com idade gestacional idênticas, uma masculina e outra feminina, qual tenderia a ter pressão sanguínea sistólica maior?
-# Por quanto, em média?
+# b) 
 
-# b) Construa um gráfico de dispersão bidimensional da pressão sanguínea sistólica versus a idade gestacional e desenhe as duas linhas 
-# de regressão de mínimos quadrados separadas que correspondem aos bebês masculinos e femininos. A diferença na pressão sanguínea sis-
-# tólica para cada valor da idade gestacional é significativamente diferente de 0 para os dois sexos?
+# c) 
 
-# c) Adicione ao modelo uma terceira variável explicativa que é a interação entre a idade gestacional e o sexo. A idade gestacional tem
-# efeito diferente na pressão sanguínea sistólica, dependendo do sexo do bebê?
+# d)
 
-# d) Você optaria por incluir o sexo e o termo de interação idade gestacional - sexo, simultaneamente, no modelo de regressão? Por quê?
+# Ex. 7, Cap. 20
 
-# Cap. 20 - Regressão Logística
-# Questão 7.
-
-# a) Usando a hemorragia da matriz germinal como resposta, ajuste o modelo e regressão logística da forma 
-# ln(p/1-p) = alpha + beta1*x1
-# na qual x1 é um escore apgar de cinco minutos. Interprete beta, o coeficiente estimado do escore apgar.
+# a)
 
 logistico = glm(lowbwt$grmhem~lowbwt$apgar5,family=binomial(link="logit"))
 
 summary(logistico)
 
-# b) Se determinada criança tem escore apgar de cinco minutos de 3, qual a probabilidade prevista de que ela tenha hemorragia no cérebro?
-# Qual a probabilidade se o escore da criança é 7?
+# b)
 
-# c) Ao nível de significância de 0.05, teste a hipótese nula de que o parâmetro beta da população é igual a 0. O que você conclui?
+# c) 
 
 testeanova <- aov(logistico)
 
 summary(testeanova)
 
-# d) Agora ajuste o modelo de regressão
-# ln(p/1-p)=alpha+beta2X2
-# onde x, representa o status de toxemia. Interprete beta, o coeficiente estimado de toxemia.
+# d)
 
 logistico2 <- glm(lowbwt$grmhem~lowbwt$tox, family=binomial(link="logit"))
 
-# e) Para uma criança cuja mãe foi diagnosticada com toxemia durante a gravidez, qual a possibilidade prevista de ela ter hemorragia de
-# matriz germinal? Qual a probabilidade para uma criança cuja mãe foi diagnosticada com toxemia?
-
+# e) 
 tab.freq <- table(lowbwt$grmhem, lowbwt$tox)
 
 tab.freq
@@ -237,17 +196,26 @@ d = 1
 
 
 
-# f) Qual a chance estimada de haver uma hemorragia da matriz germinal em crianças cujas mães foram diagnosticadas com toxemia relativa
-# às crianças cujas mães não foram diagnosticadas?
+# f) 
 
-
-# g) construa um intervalo de confiança de 95% para a razão de chances da população. Esse intervalo contém o valor de 1? O que isso
-# lhe diz?
+# g) 
 
 oddsratio(a,b,c,d, conf.level=0.95)
 oddsratio(65,14,20,1, conf.level=0.95)
 
+# Ex. 7, Cap. 22
 
+# a)
+
+# b)
+
+# c)
+
+# d)
+
+# e)
+
+# f)
 
 
 
