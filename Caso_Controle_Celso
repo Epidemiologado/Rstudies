@@ -1,0 +1,45 @@
+
+  install.packages('epigam', dependencies=TRUE)
+  install.packages('VGAM', dependencies=TRUE)
+  install.packages('AmostraBrasil', dependencies=TRUE)
+    install.packages('foreign', dependencies=TRUE)
+
+
+  dados <- read.table("dados_01_04.txt", sep="\t", dec=",", hea=TRUE, as.is=TRUE)
+
+  edit(maraba)
+
+  dadoshomicidio <- subset(dados, dados$morte.class_morte =='homicidio')
+
+  edit(dadoshomicidio)
+
+  names(dados)
+
+  summary(dados)
+
+  attach(dados)
+
+  table(socio_demo.sex_bio)
+
+  tabela1 <- table(ident.status,socio_demo.sex_bio)
+  tabela2 <- table(ident.status,socio_demo.raca_cor)
+  tabela3 <- table(ident.status,socio_demo.escolaridade)
+
+
+  table(ident.status,filho.fil_qtd)
+  ls()
+
+  prop.table(tabela1)
+  prop.table(tabela2)
+  prop.table(tabela3)
+
+
+
+
+
+Antes de enviar para Mônica: Inconsistências no Banco:
+
+maraba <- amostraBrasil(mun="Marabá", N=500)
+
+
+write.dbf(maraba,"amostramaraba.dbf")
