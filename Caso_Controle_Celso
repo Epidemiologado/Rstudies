@@ -1,41 +1,40 @@
 
-  install.packages('epigam', dependencies=TRUE)
-  install.packages('VGAM', dependencies=TRUE)
-  install.packages('AmostraBrasil', dependencies=TRUE)
-    install.packages('foreign', dependencies=TRUE)
+ 
+install.packages('epigam')
+install.packages('VGAM')
+install.packages('AmostraBrasil')
+install.packages('foreign')
 
 
-  dados <- read.table("dados_01_04.txt", sep="\t", dec=",", hea=TRUE, as.is=TRUE)
+dados <- read.table("dados_01_04.txt", sep="\t", dec=",", hea=TRUE, as.is=TRUE)
 
-  edit(maraba)
+edit(maraba)
 
-  dadoshomicidio <- subset(dados, dados$morte.class_morte =='homicidio')
+dadoshomicidio <- subset(dados, dados$morte.class_morte =='homicidio')
 
-  edit(dadoshomicidio)
+edit(dadoshomicidio)
 
-  names(dados)
+names(dados)
 
-  summary(dados)
+summary(dados)
 
-  attach(dados)
+attach(dados)
 
-  table(socio_demo.sex_bio)
+table(socio_demo.sex_bio)
 
-  tabela1 <- table(ident.status,socio_demo.sex_bio)
-  tabela2 <- table(ident.status,socio_demo.raca_cor)
-  tabela3 <- table(ident.status,socio_demo.escolaridade)
-
-
-  table(ident.status,filho.fil_qtd)
-  ls()
-
-  prop.table(tabela1)
-  prop.table(tabela2)
-  prop.table(tabela3)
+tabela1 <- table(ident.status,socio_demo.sex_bio)
+tabela2 <- table(ident.status,socio_demo.raca_cor)
+tabela3 <- table(ident.status,socio_demo.escolaridade)
 
 
+table(ident.status,filho.fil_qtd)
+ls()
 
+prop.table(tabela1)
+prop.table(tabela2)
+prop.table(tabela3)
 
+ls()
 
 Antes de enviar para Mônica: Inconsistências no Banco:
 
@@ -43,3 +42,7 @@ maraba <- amostraBrasil(mun="Marabá", N=500)
 
 
 write.dbf(maraba,"amostramaraba.dbf")
+
+
+caconde <- amostraBrasil(mun="Caconde", N=50, shape=T, geo=T)
+
