@@ -1,12 +1,12 @@
+install.packages("shapefiles")
 
- 
-install.packages('epigam')
-install.packages('VGAM')
-install.packages('AmostraBrasil')
-install.packages('foreign')
-
+library(foreign)
+library(epigam)
+library(epigam)
 
 dados <- read.table("dados_01_04.txt", sep="\t", dec=",", hea=TRUE, as.is=TRUE)
+
+
 
 edit(maraba)
 
@@ -46,3 +46,32 @@ write.dbf(maraba,"amostramaraba.dbf")
 
 caconde <- amostraBrasil(mun="Caconde", N=50, shape=T, geo=T)
 
+## Ler e converter shapefile
+library(shapefiles)
+poli<-read.shapefile("SP")
+poli<-convert.to.simple(poli$shp)
+poli<-poli[,-1]
+poli$x<-poli$X
+poli$y<-poli$Y
+plot(poli$x,poli$y,asp=1)
+detach(package:shapefiles)
+
+## ler o banco em DBF
+library(foreign)
+xuxu<-read.dbf("DADOS.dbf")
+edit(xuxu)
+detach(package:foreign)
+
+
+
+## GLM
+modeloGLM<-glm(Y~sexo+idade+pa+salario+anosesc+estcivil+fuma,family = binomial, data=xuxu)
+summary(modeloGLM)
+exp(confint(modeloGLM))
+
+## Analise espacial
+dados$Y<-abs(dados$Y-1) ## Desinverte CASOS e CONTROLES para o pacote epigam
+modeloGAM<-xgam(Y~s(x,y)+sexo+idade+pa+salario+anosesc+estcivil+fuma,modfamily = 
+multinomial, dat=dados,fixband = 0.008125)
+summary(modeloGAM)
+drawmap(modeloGAM,poli)
